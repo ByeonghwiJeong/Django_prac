@@ -9,7 +9,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('intagram/', include('instagram.urls')),
+    path('instagram/', include('instagram.urls')),
 ]
 
 # DEBUG : 개발모드일때 True
