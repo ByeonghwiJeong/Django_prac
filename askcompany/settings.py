@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from my_settings import SECRET_KEY
 
@@ -108,6 +109,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+# STATIC_ROOT = ''
+
+# 파일을 접근할때
+MEDIA_URL = '/media/'
+# 파일을 저장할때
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
