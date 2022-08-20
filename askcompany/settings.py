@@ -30,11 +30,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # third apps
     'django_extensions',
+    'debug_toolbar',
     # locals apps
     'instagram',
 ]
 
 MIDDLEWARE = [
+    # django-debug-toolbar
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -120,6 +123,9 @@ MEDIA_URL = '/media/'
 # 파일을 저장할때
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
