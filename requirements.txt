@@ -1,3 +1,4 @@
 Django==3.2.13
 Pillow
 django-debug-toolbar
+django-extensions

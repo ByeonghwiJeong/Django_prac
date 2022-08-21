@@ -126,6 +126,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+# default 값 : auth.User 
+# - django.conf.global_settings.py/// < > instagram.User
+# AUTH_USER_MODEL = 'auth.User'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 

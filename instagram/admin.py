@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-from .models import Post
+from .models import Post, Comment
 
 # 1 번
 # admin.site.register(Post)
@@ -27,3 +27,7 @@ class PostAdmin(admin.ModelAdmin):
     
     def message_length(self, post):
         return len(post.message)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
