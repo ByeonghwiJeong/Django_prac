@@ -6,7 +6,7 @@ from .models import Post
 # --- CBV ---
 post_list = ListView.as_view(model = Post)
 
-# --- FBV ---
+# --- F BV ---
 # def post_list(request):
 #     qs = Post.objects.all()
 #     # get은 dict의 method key q가있을때는 가져오고 없을때는 빈문자열''반환
@@ -27,3 +27,7 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     response.write("Hello World!")
     response.write("Hello World!")
     return response
+
+
+def archives_year(request, year):
+    return HttpResponse(f"{year}년 archives")
