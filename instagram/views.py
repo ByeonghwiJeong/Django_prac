@@ -25,7 +25,7 @@ post_list = ListView.as_view(model = Post)
     # try:
     #     post = Post.objects.get(pk=pk) # DoseNotExist 예외
     # except Post.DoesNotExist:
-    #     raise Http404 
+    #     rais:
 # 타입힌트  >>  (request: HttpRequest, pk: int) -> HttpResponse
 # def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
 #     post = get_object_or_404(Post, pk=pk)

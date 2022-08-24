@@ -6,8 +6,14 @@ from django.urls import path, include
 # from askcompany import settings
 # global_setting에 우리가 만든 settings를 Overwrite하기에 아래처럼 import
 from django.conf import settings
+from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
+    # path('', TemplateView.as_view(template_name='root.html'), name='root'),
+    path('', RedirectView.as_view(
+        url = '/instagram/',
+        pattern_name = 'instagram:post_list',
+    ), name='root'), # root로 가면 /instagram 으로 Redirect
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('instagram/', include('instagram.urls')),
