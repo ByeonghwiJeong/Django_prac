@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 # from django.contrib.auth.models import User
 # 장고는 유저모델이 변경될 수 있기 때문에 다른 유저모델이 활성화 됐을수도 있음
+from django.urls import reverse
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -21,6 +22,10 @@ class Post(models.Model):
     # def message_length(self):
     #     return len(self.message)
     # message_length.short_description = '메세지글자수'
+
+    def get_absolute_url(self):
+        return reverse("instagram:post_detail", args=[self.pk])
+    
 
     class Meta:
         ordering = ['-id']

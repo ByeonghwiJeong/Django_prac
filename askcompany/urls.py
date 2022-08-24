@@ -16,7 +16,7 @@ urlpatterns = [
     ), name='root'), # root로 가면 /instagram 으로 Redirect
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('instagram/', include('instagram.urls')),
+    path('k-instagram/', include('instagram.urls')),
 ]
 
 # DEBUG : 개발모드일때 True
