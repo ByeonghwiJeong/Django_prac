@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.generic import ListView, DetailView
 from django.http import HttpResponse, HttpRequest, Http404
@@ -5,20 +8,28 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post
 
 # --- CBV ---
-post_list = ListView.as_view(model = Post, paginate_by =10)
+# 가독성 안좋음
+# post_list = login_required(ListView.as_view(model = Post, paginate_by =10))
 
+# @method_decorator(login_required, name='dispatch')
+class PostListView(LoginRequiredMixin, ListView):
+    model = Post
+    paginate_by = 10
+
+post_list = PostListView.as_view()
 # --- F BV ---
+# @login_required
 # def post_list(request):
 #     qs = Post.objects.all()
 #     # get은 dict의 method key q가있을때는 가져오고 없을때는 빈문자열''반환
 #     q = request.GET.get('q', '')
 #     if q:
 #         qs = qs.filter(message__icontains=q)
-    # # instagram/templates/instagram/post_list << 위치고정
-    # return render(request, 'instagram/post_list.html', {
-    #     'post_list': qs,
-    #     'q': q
-    # })
+#     # instagram/templates/instagram/post_list << 위치고정
+#     return render(request, 'instagram/post_list.html', {
+#         'post_list': qs,
+#         'q': q
+#     })
     
 
 # post = get_object_or_404(Post, pk=pk)
