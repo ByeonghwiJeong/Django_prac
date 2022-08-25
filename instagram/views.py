@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
@@ -9,12 +10,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
 
-# @csrf_exempt
+@login_required # post.author = request.user >> 로그인 상황 보장 해야함
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
+            post = form.save(commit=False) # commit=False : instance.save의 호출을 지연시기키려고
+            post.author = request.user # 로그인 유저를 받아옴 
+            post.save() # 여기서 save()
             return redirect(post)
     else:
         form = PostForm()
@@ -22,6 +25,29 @@ def post_new(request):
     return render(request, 'instagram/post_form.html',{
         'form': form,
     })
+
+
+@login_required
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    
+    #작성자 Check Tip ~ 보통은 decorator로 하는것 추천 > 중복제거
+    if post.author != request.user:
+        messages.error(request, '작성자만 수정할 수 있습니다')
+        return redirect(post)
+
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid(): 
+            post = form.save()
+            return redirect(post)
+    else:
+        form = PostForm(instance=post)
+    
+    return render(request, 'instagram/post_form.html', {
+        'form': form,
+    })
+
 # --- CBV ---
 # 가독성 안좋음
 # post_list = login_required(ListView.as_view(model = Post, paginate_by =10))
