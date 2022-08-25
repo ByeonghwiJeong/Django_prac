@@ -15,8 +15,7 @@ SECRET_KEY = SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [ '*' ] # ngrok 주소를 써야함 / 편의상 '*'처리
 
 # Application definition
 
