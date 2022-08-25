@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
 from django.conf import settings
 # from django.contrib.auth.models import User
 # 장고는 유저모델이 변경될 수 있기 때문에 다른 유저모델이 활성화 됐을수도 있음
@@ -6,7 +7,9 @@ from django.urls import reverse
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    message = models.TextField()
+    message = models.TextField(
+        validators=[MinLengthValidator(10)]
+    )
     photo = models.ImageField(blank=True, upload_to='instagmam/post/%Y%m/%d')
     tag_set = models.ManyToManyField('Tag', blank=True) 
     # Tag X 'Tag'문자열 O  // blank=True > 컬럼 추가시 필수
