@@ -18,12 +18,14 @@ def post_new(request):
             post = form.save(commit=False) # commit=False : instance.save의 호출을 지연시기키려고
             post.author = request.user # 로그인 유저를 받아옴 
             post.save() # 여기서 save()
+            messages.success(request, '포스팅을 저장했습니다')
             return redirect(post)
     else:
         form = PostForm()
 
     return render(request, 'instagram/post_form.html',{
         'form': form,
+        'post': None,
     })
 
 
@@ -40,12 +42,14 @@ def post_edit(request, pk):
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid(): 
             post = form.save()
+            messages.success(request, '포스팅을 수정했습니다.')
             return redirect(post)
     else:
         form = PostForm(instance=post)
     
     return render(request, 'instagram/post_form.html', {
         'form': form,
+        'post': post,
     })
 
 # --- CBV ---
@@ -94,7 +98,7 @@ post_list = PostListView.as_view()
 
 class PostDetailView(DetailView):
     model = Post
-    queryset = Post.objects.filter(is_public=True)
+    # queryset = Post.objects.filter(is_public=True)
 
     def get_queryset(self):
         qs = super().get_queryset()
