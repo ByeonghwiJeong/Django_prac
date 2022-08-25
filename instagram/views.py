@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import ListView, DetailView, ArchiveIndexView, YearArchiveView
 from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
 from .forms import PostForm
 
-
+# @csrf_exempt
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
