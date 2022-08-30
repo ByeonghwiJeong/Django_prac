@@ -39,7 +39,7 @@ def profile_edit(request):
     })
 
 
-def signup(requset):
+def signup(request):
     pass
 
 
