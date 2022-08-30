@@ -58,7 +58,3 @@ class SignupView(CreateView):
         return response
 
 signup = SignupView.as_view()
-
-
-def logout(request):
-    pass
